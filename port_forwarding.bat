@@ -3,9 +3,9 @@ setlocal EnableExtensions
 
 title Show, Add, Delete netsh interface portproxy
 
-set "menuItem[1]=Show which port is forwarded"
-set "menuItem[2]=Add port to forward"
-set "menuItem[3]=Delete port to forward"
+set "menuItem[1]=Show port-forwarding"
+set "menuItem[2]=Add port-forwaring"
+set "menuItem[3]=Delete port-forwarding"
 
 set "Message="
 :Menu
