@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 cls
 goto :main
 
-:lengthFunction <passVar> <passLenVar>
+:lengthFunction <codeVar> <codeLenVar>
 (
 	set /a %~2=0
 	for /l %%i in ( 0, 1, 8190) do (
@@ -25,33 +25,28 @@ setlocal
 	REM set database=..........0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
 	set database=..........abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
 	set /p "code=Code: "
-	set /p "pass=Encrypt your password: "
-
+	set /p decrypt=Decrypt your password: 
 	
 	call :lengthFunction database databaseLen
 	set /a databaseLen-=1
-	call :lengthFunction pass passLenVar
-	REM set /a passLenVar-=1
-
+	call :lengthFunction decrypt codeLenVar
+	REM set /a codeLenVar-=1
+	
+	
 	for /l %%g in ( 10, 1, !databaseLen! ) do (
 		for /f %%h in ( "!database:~%%g,1!" ) do (
-		
-			for /l %%i in ( 0, 1, !passLenVar! ) do (
-			
-				if "%%h" equ "!pass:~%%i,1!" (
-					
-					set /a MATH=%%g*!code!
-					for /f %%m in ( "!MATH!" ) do (
-						set "pass=!pass:%%h=-%%m!"
-					)
-				)
+			set /a MATH=%%g*!code!
+			for /f %%m in ( "!MATH!" ) do (
+				set "decrypt=!decrypt:%%m=%%h!"
 			)
 		)
 	)
 	cls
-	REM echo !passLenVar!
-	echo !pass!
-	REM set "pass="
+	for /f %%m in ( "!decrypt!" ) do (
+		set "decrypt=!decrypt:-=!"
+	)
+	echo !decrypt!
+	set "decrypt="
 endlocal
 goto :main
 :eof
