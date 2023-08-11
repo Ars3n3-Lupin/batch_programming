@@ -11,7 +11,7 @@ goto :main
 			set /a %~2+=1
 		)
 	)
-	echo Len !%~2!
+	REM echo Len !%~2!
 )
 goto :eof
 
